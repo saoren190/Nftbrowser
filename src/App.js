@@ -1,22 +1,28 @@
-import {Button, Input, Layout, Card, List, message} from "antd";
+import { Layout, Input, Button, List, Card, message } from "antd";
+import "./App.css";
 import { useState } from "react";
-import { getContractNFTs } from "./util";
-import './App.css';
+import { getContractNFTs } from "./utils";
+import NftCard from "./components/NftCard";
 
 
-const {Header, Content} = Layout;
+const { Header, Content } = Layout;
+
 
 function App() {
-  const [nfts, setNfts] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [searchText, setSearchText] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [nfts, setNfts] = useState([]);
+
 
   const handleSearch = async () => {
     if (searchText === "") {
       return;
     }
 
+
     setLoading(true);
+
+
     try {
       const data = await getContractNFTs(searchText);
       setNfts(data.result);
@@ -25,30 +31,35 @@ function App() {
     } finally {
       setLoading(false);
     }
-  }
+  };
+
 
   return (
-    <Layout style={{height: "100vh"}}>
-      <header>
-        <div style={{fontSize:16, fontWeight: 600, color:"white"}}>
+    <Layout style={{ height: "100vh" }}>
+      <Header>
+        <div style={{ fontSize: 16, fontWeight: 600, color: "white" }}>
           NFT Browser
         </div>
-      </header>
-      <Content style={{height: "calc(100% - 64px)", padding:20, overflowY: "auto"}}>
-        <Input.Group compact>
-          <Input 
-            style={{width: 300}}
+      </Header>
+      <Content
+        style={{ height: "calc(100% - 64px)", padding: 20, overflowY: "auto" }}
+      >
+        <Input.Group>
+          <Input
+            style={{ width: 500 }}
             placeholder="Enter a NFT contract address to search"
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
           />
-          <Button type="primary" onClick={handleSearch}>Search</Button>
+          <Button type="primary" onClick={handleSearch}>
+            Search
+          </Button>
         </Input.Group>
         <List
-          loading = {loading}
+          loading={loading}
           style={{
             marginTop: 20,
-            height: "calc(100% - 64px)",
+            height: "calc(100% - 52px)",
             overflow: "auto",
           }}
           grid={{
@@ -60,16 +71,15 @@ function App() {
             xl: 4,
             xxl: 4,
           }}
-          dataSource={[1, 2, 3]}
-          renderItem={(nft) => (
-              <List.Item key={nft}>
-                <Card title={nft}/>
-              </List.Item>
-            )}
+          dataSource={nfts}
+          renderItem={(nft) => <NftCard nft={nft} key={nft.token_id} />}
         />
       </Content>
     </Layout>
   );
 }
 
+
 export default App;
+
+
