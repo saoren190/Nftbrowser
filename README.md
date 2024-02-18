@@ -16,6 +16,7 @@ The link of the browser: [NFTbrowser](https://dev8099.dwf7gmjurwrq5.amplifyapp.c
 
 - **React**: Utilizes the latest React framework for efficient UI rendering and state management.
 - **AWS Amplify**: Hosted on AWS Amplify for reliable access and high availability.
+- **Ant Design**: Used the Ant Design, a famous template to make the website looks better.
 
 ## Getting Started
 
