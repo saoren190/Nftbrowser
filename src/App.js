@@ -3,7 +3,7 @@ import "./App.css";
 import { useState } from "react";
 import { getContractNFTs } from "./utils";
 import NftCard from "./components/NftCard";
-
+import ContractTrades from "./components/ContractTrades";
 
 const { Header, Content } = Layout;
 
@@ -44,7 +44,7 @@ function App() {
       <Content
         style={{ height: "calc(100% - 64px)", padding: 20, overflowY: "auto" }}
       >
-        <Input.Group>
+        <Input.Group compact>
           <Input
             style={{ width: 500 }}
             placeholder="Enter a NFT contract address to search"
@@ -72,7 +72,7 @@ function App() {
             xxl: 4,
           }}
           dataSource={nfts}
-          renderItem={(nft) => <NftCard nft={nft} key={nft.token_id} />}
+          renderItem={(nft) => <NftCard nft={nft} key={nft} />}
         />
       </Content>
     </Layout>
